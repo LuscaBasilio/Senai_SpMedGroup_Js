@@ -1,0 +1,40 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Lucida Sans Unicode'
+}
+
+* img{
+    -webkit-user-drag: none;
+}
+
+* button{
+  background: #82C0D9;
+  border-radius: 8px;
+  font-family: 'Lucida Sans Unicode';
+  color: #000000;
+  font-size: 28px;
+  padding: 10px 17px;
+  text-decoration: none;
+  border: solid 1px #82D98F;
+}
+
+* button:hover{
+  background: #82D98F;
+  border: solid 2px #82C0D9;
+  text-decoration: none;
+  transition-duration: 0.75s;
+}
+
+* button, input:focus{
+    outline: none;
+}
+
+.body{
+    width: 100%;
+}
+
+.body button{
+    background-color: #7E84F2;
+}

@@ -1,0 +1,31 @@
+.header{
+    height: 200px;
+    width: 100%;
+    background-color:#82cbc3;
+}
+
+.logo{
+    margin: 35px 70px;
+    height: 130px;
+    width: 130px;
+}
+
+.profile{
+    width: 40%;
+    font-size: 21px;
+    position: absolute;
+    display: flex;
+    top: 35px;
+    right: 35px;
+    text-align: left;
+}
+
+.profile img{
+    height: 130px;
+    width: 130px;
+}
+
+.profile span{
+    align-self: center;
+    margin-right: 30px;
+}
