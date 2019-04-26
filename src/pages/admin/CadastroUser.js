@@ -3,6 +3,29 @@ import Footer from '../../components/Footer';
 
 
 class CadastroUser extends Component{
+    constructor(){
+        super();
+        this.state={
+            id: '',
+            nome: '',
+            email: '',
+            senha: '',
+            tipoUsuario: '',
+            dataNascimento: ''
+        }
+    }
+
+    
+    CadastrarUser(){
+        let Usuario={
+            id: this.state.id,
+            nome: this.state.nome,
+            senha: this.state.senha,
+            tipoUsuario: this.state.tipoUsuario,
+            dataNascimento: this.state.dataNascimento
+        }
+    }
+
     render(){
         return(
             <div>

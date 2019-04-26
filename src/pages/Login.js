@@ -47,7 +47,7 @@ class Login extends Component{
                         break;
                 
                     default:
-
+                        this.setState({error: "Email ou senha inválidos"});
                         break;
                 }
             }
@@ -81,6 +81,7 @@ class Login extends Component{
                     
                     <button type="submit">Entrar</button>
                 </form>
+                <p>{this.props.error}</p>
                 <a>Não é cadastrado?</a>
             </div>
         )
