@@ -82,7 +82,7 @@ class Login extends Component{
                     <button type="submit">Entrar</button>
                 </form>
                 <p>{this.props.error}</p>
-                <a>Não é cadastrado?</a>
+                <a href="https://manytools.org/hacker-tools/convert-images-to-ascii-art/">Não é cadastrado?</a>
             </div>
         )
     }

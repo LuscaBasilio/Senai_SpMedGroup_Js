@@ -11,65 +11,52 @@ class ListaUsuarios extends Component{
             nome: '',
             email: '',
             senha: '',
-            tipoUsuario: '',
+            idTipoUsuario: '',
             dataNascimento: '',
-            listaUsuarios: []
+            listUsuarios: []
         };
-    }
+    };
 
     UsuariosLista(){
         fetch('http://localhost:5000/api/Usuario/usuarios')
         .then(resposta => resposta.json())
-        .then(data => this.setState({listaUsuarios: data}))
-        .catch(erro => console.log(erro))
+        .then(data => this.setState({listUsuarios: data}))
+        .catch(erro => console.error(erro))
     }
 
-    componentDidMount(){
-        this.UsuariosLista();
-    }
-
-    attNome(){
-        this.setState({nome: this.target.value})
-    }
-
-    attEmail(){
-        this.setState({email: this.target.value})
-    }
-
-    attSenha(){
-        this.setState({senha: this.target.value})
-    }
-
-    attTipoUsuario(){
-        this.setState({tipoUsuario: this.target.value})
-    }
-
-    attDataNascimento(){
-        this.setState({dataNascimento: this.target.value})
-    }
-    
     render(){
         return(
             <div>
                 <Header />
                     <div className="table-container">
                         <table>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Nome</th>
-                                    <th>Email</th>
-                                    <th>Senha</th>
-                                    <th>Tipo de usuário</th>
-                                    <th>Data de nascimento</th>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>Senha</th>
+                                        <th>Tipo de usuário</th>
+                                        <th>Data de nascimento</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        this.state.listUsuarios.map( listaUsuarios =>{
+                                            return(
+                                                <tr key={listaUsuarios.id}>
+                                                    <td>{listaUsuarios.id}</td>
+                                                    <td>{listaUsuarios.nome}</td>
+                                                    <td>{listaUsuarios.email}</td>
+                                                    <td>{listaUsuarios.senha}</td>
+                                                    <td>{listaUsuarios.tipoUsuario}</td>
+                                                    <td>{listaUsuarios.dataNascimento}</td>
+                                                </tr>
+                                            )
+                                            })
+                                    }
+
+                                </tbody>             
                         </table>
                     </div>
                 <Footer />
