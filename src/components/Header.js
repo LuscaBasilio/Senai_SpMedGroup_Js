@@ -3,7 +3,6 @@ import "../assets/css/Default.css";
 import "../assets/css/Header.css";
 import logo from '../assets/img/LogoSp.png';
 import userimg from '../assets/img/fraklim.jpg';
-import {jwtParse} from '../services/authentication';
 
 class Header extends Component{
 
@@ -15,10 +14,7 @@ class Header extends Component{
         }
     }
 
-    
-
     render(){
-        console.log(jwtParse());
         return(
             <div className="header">
         <img className="logo" src={logo} draggable="false" alt="Logo" />

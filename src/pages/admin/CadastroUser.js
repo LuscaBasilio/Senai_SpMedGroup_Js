@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
-import Axios from 'axios';
-
-
 
 class CadastroUser extends Component{
     constructor(){
         super();
         this.state={
-            id: '',
             nome: '',
             email: '',
             senha: '',
@@ -52,15 +48,27 @@ class CadastroUser extends Component{
     }
 
     tiposUser(){
-        fetch('http://localhost:5000/api/Usuario/tipos')
+        let token = localStorage.getItem('userOn');
+        fetch('http://192.168.56.1:5000/api/Usuario/tipos',{method: 'GET', 
+        headers: new Headers (
+            {'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'})})
         .then(resposta => resposta.json())
         .then(data => this.setState({listTipos : data}))
         .catch(error => console.error(error))
     }
 
+    componentDidMount(){
+        this.tiposUser();
+    }
+
     Cadastrar(event){
         event.preventDefault();
-        Axios.post('http://localhost:5000/api/Usuario/cadastrar', ({
+        let token = localStorage.getItem('userOn');
+        fetch('http://192.168.56.1:5000/api/Usuario/cadastrar', {method: 'POST', 
+        headers: new Headers (
+            {'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'}), body:JSON.stringify({
             nome: this.state.nome,
             email: this.state.email,
             senha: this.state.senha,
@@ -68,7 +76,7 @@ class CadastroUser extends Component{
             cpf: this.state.cpf,
             listTipos: this.state.listTipos,
             dataNascimento: this.state.dataNascimento
-        }))
+        })})
         .then(data => console.log(data))
         .catch(error => console.error(error))
     }
@@ -102,8 +110,14 @@ class CadastroUser extends Component{
                     onChange={this.attCPF.bind(this)}
                     placeholder="Insira o CPF"/>
 
+                    <input type="date" value={this.state.dataNascimento}
+                    onChange={this.attDataNascimento.bind(this)}></input>
+
                     <select>
-                        <option>Tipo de usuário:</option><option>{this.state.listTipos}</option>
+                        <option>Tipo de Usuario:</option>
+                        {this.state.listTipos.map(tipos =>{
+                            return(<option key={tipos.id}>{tipos.tipo}</option>)
+                        })}
                     </select>
 
                     <button type="submit">Cadastrar</button>

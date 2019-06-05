@@ -7,21 +7,26 @@ class ListaUsuarios extends Component{
     constructor(){
         super();
         this.state={
-            id: '',
-            nome: '',
-            email: '',
-            senha: '',
-            idTipoUsuario: '',
-            dataNascimento: '',
             listUsuarios: []
         };
+        this.UsuariosLista = this.UsuariosLista.bind(this);
     };
-
+    
     UsuariosLista(){
-        fetch('http://localhost:5000/api/Usuario/usuarios')
-        .then(resposta => resposta.json())
-        .then(data => this.setState({listUsuarios: data}))
-        .catch(erro => console.error(erro))
+        let token = localStorage.getItem('userOn');
+        
+        fetch('http://192.168.56.1:5000/api/Usuario/usuarios', 
+        {method: 'GET', 
+        headers: new Headers (
+            {'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'})})
+            .then(resposta => resposta.json())
+            .then(data => this.setState({listUsuarios : data}))
+            .catch(erro => console.error(erro));
+        }
+        
+        componentDidMount(){
+        this.UsuariosLista();
     }
 
     render(){
@@ -53,7 +58,7 @@ class ListaUsuarios extends Component{
                                                     <td>{listaUsuarios.dataNascimento}</td>
                                                 </tr>
                                             )
-                                            })
+                                        })
                                     }
 
                                 </tbody>             

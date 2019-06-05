@@ -25,7 +25,7 @@ class Login extends Component{
 
     Logar(event){
         event.preventDefault();
-        Axios.post('http://localhost:5000/api/login/log', ({
+        Axios.post('http://192.168.56.1:5000/api/login/log', ({
             email: this.state.email,
             senha: this.state.senha
         }))
@@ -82,7 +82,7 @@ class Login extends Component{
                     <button type="submit">Entrar</button>
                 </form>
                 <p>{this.props.error}</p>
-                <a href="https://manytools.org/hacker-tools/convert-images-to-ascii-art/">Não é cadastrado?</a>
+                <a href="https://spiritsandsuch.com/wp-content/uploads/2019/02/ghost-dancer.gif">Não é cadastrado?</a>
             </div>
         )
     }

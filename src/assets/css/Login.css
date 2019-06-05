@@ -38,8 +38,16 @@ form button{
 
 .obdy input{
     height: 40px;
-    border-radius: 40px;
     padding: 20px;
     align-self: center;
-    border: 2px solid #101010;
+    border: 2px solid #82C0D9;
+}
+
+.obdy input::placeholder{
+    color: #82C0D9;
+}
+
+.obdy input:focus{
+    background-color: rgba(130, 192, 217, 0.09);
+    transition: 0.3s;
 }

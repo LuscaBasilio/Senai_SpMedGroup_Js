@@ -10,31 +10,30 @@
 }
 
 * button{
-  background: #82C0D9;
-  border-radius: 8px;
+  background: transparent;
   font-family: 'Lucida Sans Unicode';
-  color: #000000;
+  color: rgb(82, 135, 156);
   font-size: 28px;
   padding: 10px 17px;
   text-decoration: none;
-  border: solid 1px #82D98F;
+  border: solid 1.5px #82C0D9;
 }
 
 * button:hover{
-  background: #82D98F;
-  border: solid 2px #82C0D9;
+  background: #82C0D9;
+  color: #fff;
   text-decoration: none;
-  transition-duration: 0.75s;
+  transition-duration: 0.25s;
 }
 
 * button, input:focus{
     outline: none;
 }
 
-.body{
-    width: 100%;
+* a{
+    text-decoration: none;
 }
 
-.body button{
-    background-color: #7E84F2;
+.body{
+    width: 100%;
 }
