@@ -25,7 +25,7 @@ class Login extends Component{
 
     Logar(event){
         event.preventDefault();
-        Axios.post('http://192.168.56.1:5000/api/login/log', ({
+        Axios.post('http://192.168.56.1:5000/api/Login', ({
             email: this.state.email,
             senha: this.state.senha
         }))

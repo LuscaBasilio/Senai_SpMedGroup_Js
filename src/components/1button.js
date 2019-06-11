@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom';
 class OneButton extends Component{
     render(){
         let tipoUsuario = jwtParse().Role;
+        console.log(jwtParse().Role)
             switch (tipoUsuario) {
                 case "MÃ©dico":
                     tipoUsuario = "Medico";
@@ -17,7 +18,7 @@ class OneButton extends Component{
             }
         return(
         <div className="body">
-            <button > <Link to={`/${tipoUsuario}/Consultas`} >{this.props.treatment}</Link></button>
+            <button ><Link to={`/${tipoUsuario}/Consultas`}>{this.props.treatment}</Link></button>
         </div>
         )
     }
