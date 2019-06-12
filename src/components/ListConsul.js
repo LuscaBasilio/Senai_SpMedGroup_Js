@@ -6,12 +6,27 @@ class ListConsul extends Component {
     super();
     this.state = {
       listConsul: [],
-      listaPaciente:[]
+      listaPaciente:[],
+      listAdm:[]
     };
   }
 
+  listarConsultasADM() {
+    let token = localStorage.getItem("userOn")
+    
+    fetch("http://192.168.56.1:5000/api/Usuario/Consultas", {
+      method: "GET",
+      headers: new Headers({
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      })
+    })
+      .then(resposta => resposta.json())
+      .then(data => this.setState({listAdm:data}))
+      .catch(error => console.log(error));
+    }
   
-  listarConsultas() {
+    listarConsultas() {
     let token = localStorage.getItem("userOn")
     
     fetch("http://192.168.56.1:5000/api/Medico/Consultas", {
@@ -42,20 +57,79 @@ class ListConsul extends Component {
     }
 
   componentDidMount(){
-    switch (jwtParse().Role) {
+    switch (jwtParse().auth) {
       case "MÃ©dico":
         this.listarConsultas();
         break;
     
-      default:
+      case "Paciente":
           this.listarConsultasPaciente();
+        break;
+
+      default:
+        this.listarConsultasADM();
         break;
     }
 }
 
   render() {
-    if(jwtParse().Role === 'MÃ©dico'){
-      return (
+    if (jwtParse().auth === "MÃ©dico") {
+        return (
+          <div className="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <td>Paciente</td>
+                  <td>Médico</td>
+                  <td>Data da consulta</td>
+                  <td>Observação</td>
+                  <td>Progresso</td>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.listConsul.map(listConsul => {
+                  return (
+                    <tr key={listConsul.id}>
+                      <td>{listConsul.idPaciente}</td>
+                      <td>{listConsul.idMedico}</td>
+                      <td>{listConsul.dataConsulta}</td>
+                      <td>{listConsul.observacao}</td>
+                      <td>{listConsul.progresso}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}else if(jwtParse().auth === "Paciente"){
+          return (
+            <div className="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <td>Médico</td>
+                    <td>Data da consulta</td>
+                    <td>Observação</td>
+                    <td>Progresso</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.listaPaciente.map(listConsul => {
+                    return (
+                      <tr key={listConsul.id}>
+                        <td>{listConsul.idPaciente}</td>
+                        <td>{listConsul.idMedico}</td>
+                        <td>{listConsul.dataConsulta}</td>
+                        <td>{listConsul.observacao}</td>
+                        <td>{listConsul.progresso}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}else if(jwtParse().auth === "Administrador"){
+        return (
         <div className="table-container">
           <table>
             <thead>
@@ -68,7 +142,7 @@ class ListConsul extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.listConsul.map(listConsul => {
+              {this.state.listAdm.map(listConsul => {
                 return (
                   <tr key={listConsul.id}>
                     <td>{listConsul.idPaciente}</td>
@@ -77,35 +151,7 @@ class ListConsul extends Component {
                     <td>{listConsul.observacao}</td>
                     <td>{listConsul.progresso}</td>
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      );
-    }else{
-      return (
-        <div className="table-container">
-          <table>
-            <thead>
-              <tr>
-                <td>Médico</td>
-                <td>Data da consulta</td>
-                <td>Observação</td>
-                <td>Progresso</td>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.listaPaciente.map(listConsul => {
-                return (
-                  <tr key={listConsul.id}>
-                    <td>{listConsul.idPaciente}</td>
-                    <td>{listConsul.idMedico}</td>
-                    <td>{listConsul.dataConsulta}</td>
-                    <td>{listConsul.observacao}</td>
-                    <td>{listConsul.progresso}</td>
-                  </tr>
-                );
+                )
               })}
             </tbody>
           </table>

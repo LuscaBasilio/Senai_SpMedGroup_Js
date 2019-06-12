@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import ListConsul from '../../components/1button';
 
 class ConsultaManejo extends Component{
     constructor(){
@@ -21,41 +22,47 @@ class ConsultaManejo extends Component{
 
     ListarProgresso(){
         let token = localStorage.getItem('userOn');
-        fetch('http://192.168.56.1:5000/api/',{method: 'GET', 
+        fetch('http://192.168.56.1:5000/api/Consulta/Progresso',{method: 'GET', 
         headers: new Headers (
             {'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'})})
         .then(resposta => resposta.json())
-        .then(data => this.setState({progresso : data}))
+        .then(data => this.setState({progresso:data}))
         .catch(error => console.error(error))
     }
 
     ListarMedico(){
         let token = localStorage.getItem('userOn');
-        fetch('http://192.168.56.1:5000/api/',{method: 'GET', 
+        fetch('http://192.168.56.1:5000/api/Usuario/Medicos',{method: 'GET', 
         headers: new Headers (
             {'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'})})
         .then(resposta => resposta.json())
-        .then(data => this.setState({medico : data}))
+        .then(data => this.setState({medico:data}))
         .catch(error => console.error(error))
     }
 
     ListarPacientes(){
         let token = localStorage.getItem('userOn');
-        fetch('http://192.168.56.1:5000/api/',{method: 'GET', 
+        fetch('http://192.168.56.1:5000/api/Usuario/Pacientes',{method: 'GET', 
         headers: new Headers (
             {'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'})})
         .then(resposta => resposta.json())
-        .then(data => this.setState({paciente : data}))
+        .then(data => this.setState({paciente:data}))
         .catch(error => console.error(error))
+    }
+
+    componentDidMount(){
+        this.ListarMedico();
+        this.ListarPacientes();
+        this.ListarProgresso();
     }
 
     Cadastrar(event){
         event.preventDefault();
         let token = localStorage.getItem('userOn');
-        fetch('http://192.168.56.1:5000/api/Consulta/Cadastrar', {method: 'POST', 
+        fetch('http://192.168.56.1:5000/api/Consulta/Cadastro', {method: 'POST', 
         headers: new Headers (
             {'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'}), body:JSON.stringify({
@@ -93,28 +100,32 @@ class ConsultaManejo extends Component{
         return(
             <div>
                 <Header />
-                    
-                    <select>
+                    <ListConsul />
+                    <form onSubmit={this.Cadastrar.bind(this)}>
+                    <select onChange={this.attMedico.bind(this)}>
                         <option>Médico</option>
-                        {this.state.medico.map(medico => {
-                            return(<option key={medico.id}>{medico.medico}</option>)})}
+                        {this.state.medico.map(medic => {
+                            return(<option key={medic.id}>{medic.nome}</option>)})}
                     </select>
                     
-                    <select>
+                    <select onChange={this.attPaciente.bind(this)}>
                         <option>Paciente</option>
                         {this.state.paciente.map(paciente => {
-                            return(<option key={paciente.id}>{paciente.paciente}</option>)})}
+                            return(<option key={paciente.id}>{paciente.nome}</option>)})}
                     </select>
 
                     <input type="date" value={this.state.dataConsulta} onChange={this.attData.bind(this)}/>
 
-                    <select>
+                    <select onChange={this.attProgresso.bind(this)}>
                         <option>Progresso</option>
                         {this.state.progresso.map(progresso => {
-                            return(<option key={progresso.id}>{progresso.progresso}</option>)})}
+                            return(<option key={progresso.id} value={progresso.id}>{progresso.progresso1}</option>)})}
                     </select>
 
                     <input placeholder="Descrição" type="textarea" value={this.state.descricao} onChange={this.attDescricao.bind(this)}/>
+                    
+                    <button>Cadastrar</button>
+                    </form>
                 <Footer />
             </div>
         )

@@ -7,7 +7,6 @@ import {Link} from 'react-router-dom';
 class OneButton extends Component{
     render(){
         let tipoUsuario = jwtParse().Role;
-        console.log(jwtParse().Role)
             switch (tipoUsuario) {
                 case "MÃ©dico":
                     tipoUsuario = "Medico";
